@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.OwnerMapper">
+	<!-- 查询SQL片段 -->
+	<sql id="select">
+		o.id id,floorid,idcard,o.number number,time,remarks,u.name userName ,f.numbers floorName
+	</sql>
+	
+	<!-- 筛选片段 -->
+	<sql id="serach">
+		where idcard like '%${keyword}%' or remarks like
+		'%${keyword}%' or u.name like
+		'%${keyword}%' or f.numbers like
+		'%${keyword}%'
+	</sql>
+	
+	<!-- 添加信息 -->
+	<insert id="insert" parameterType="owner">
+		INSERT INTO
+		owner (id,floorid,idcard,number,time,remarks,placeid)
+		VALUES(#{id},#{floorid},#{idcard},#{number},#{time},#{remarks},#{placeid})
+	</insert>
+
+	<!-- 查询分页数据 -->
+	<select id="list" parameterType="com.ssm.util.Pagination"
+		resultType="owner">
+		SELECT
+		<include refid="select" />
+		from owner o JOIN `user` u
+		on o.id=u.id join floor f on f.id=o.floorid
+		<include refid="serach" />
+		LIMIT #{skipNum},#{takeNum}
+	</select>
+
+	<!-- 查询分页条数 -->
+	<select id="count" parameterType="com.ssm.util.Pagination"
+		resultType="int">
+		SELECT COUNT(*) from owner o JOIN `user` u
+		on o.id=u.id join floor f on f.id=o.floorid
+		<include refid="serach" />
+	</select>
+
+	<!-- 删除信息 -->
+	<delete id="delete" parameterType="owner">
+		DELETE FROM owner WHERE
+		id=#{id}
+	</delete>
+
+	<!-- 根据Id查询信息 -->
+	<select id="findById" parameterType="string" resultType="owner">
+		select
+		<include refid="select" />
+		from owner o JOIN `user` u
+		on o.id=u.id join floor f on f.id=o.floorid where o.id=#{id}
+	</select>
+
+	<!-- 更新信息 -->
+	<update id="update" parameterType="owner">
+		UPDATE owner set
+		floorid=#{floorid},
+		idcard=#{idcard},
+		number=#{number},
+		remarks=#{remarks},
+		placeid=#{placeid}
+		where id=#{id}
+	</update>
+</mapper>

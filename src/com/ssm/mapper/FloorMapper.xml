@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.mapper.FloorMapper">
+<!-- 查询SQL片段 -->
+	<sql id="select">
+		id,numbers,size, type,state
+	</sql>
+	<!-- 筛选片段 -->
+	<sql id="serach">
+		where numbers like '%${keyword}%' or size like '%${keyword}%' or type like '%${keyword}%' 
+	</sql>
+<!-- 添加楼房 -->
+	<insert id="insert" parameterType="floor">
+		INSERT INTO 
+		floor (id,numbers,size,type,state)
+		VALUES(#{id},#{numbers},#{size},#{type},#{state})
+	</insert>
+	<!-- 查询分页数据 -->
+	<select id="list" parameterType="com.ssm.util.Pagination"
+		resultType="floor">
+		SELECT <include refid="select"/>
+		from floor
+		 <include refid="serach"/>
+		 LIMIT #{skipNum},#{takeNum}
+	</select>
+	<!-- 查询分页条数 -->
+	<select id="count" parameterType="com.ssm.util.Pagination"
+		resultType="int">
+		SELECT COUNT(*) from floor
+		 <include refid="serach"/>
+	</select>
+	<!-- 删除楼房 -->
+	<delete id="delete" parameterType="floor">
+		DELETE FROM floor WHERE id=#{id}
+	</delete>
+	<!-- 根据Id查询楼房 -->
+	<select id="findById" parameterType="string" resultType="floor">
+		select <include refid="select"/> from floor where id=#{id}
+	</select>
+	<!-- 更新楼房 -->
+	<update id="update" parameterType="floor">
+		UPDATE floor set
+		numbers=#{numbers},
+		size=#{size},
+		type=#{type},
+		state=#{state}
+		where id=#{id}
+	</update>
+	<select id="findIDAndNumber" resultType="com.ssm.util.SelectCustom" >
+	SELECT id value,numbers name FROM floor
+	</select>
+	<!-- 获取未使用的房屋 -->
+	<select id="findFloorSelect" resultType="com.ssm.util.SelectCustom">
+	SELECT id value ,CONCAT(numbers,":",type) name FROM floor WHERE state='是'
+	</select>
+</mapper>
