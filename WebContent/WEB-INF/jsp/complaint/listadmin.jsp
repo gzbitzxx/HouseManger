@@ -89,12 +89,8 @@ span.field-validation-error {
 								width : '100px',
 								text : '操作',
 								template : function(action, rowObject) {
-									return '<a style="color:#337ab7;" href="javascript:;" onclick="deleteInfo(\''
-											+ rowObject.id
-											+ '\')">删除</a>'
-											+ "| "
-											+ '<a style="color:#337ab7;" href="javascript:;" onclick="updateInfo(\''
-											+ rowObject.id + '\')">编辑</a>';
+									return '<a style="color:#337ab7;" href="javascript:;" onclick="updateInfo(\''
+											+ rowObject.id + '\')">回复</a>';
 								}
 							} ]
 
@@ -106,14 +102,6 @@ span.field-validation-error {
 	<div class="row">
 		<div class="col-md-10">
 			<h3>投诉列表</h3>
-		</div>
-		<div class="col-md-1">
-			<div class="form-group">
-				<button type="button" data-toggle="modal" data-target="#myModal"
-					class="btn">
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加
-				</button>
-			</div>
 		</div>
 	</div>
 	<div class="row col-md-11">
@@ -146,11 +134,11 @@ span.field-validation-error {
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<label for="content">投诉内容：</label>
-									<textarea class="form-control" rows="6" cols="" name="content"
-										id="content" data-val="true"
-										data-val-required="请填写 &#39;投诉内容&#39;。"></textarea>
-									<span class="field-validation-error" data-valmsg-for="content"
+									<label for="content">回复内容：</label>
+									<textarea class="form-control" rows="6" cols="" name="reply"
+										id="reply" data-val="true"
+										data-val-required="请填写 &#39;回复内容&#39;。"></textarea>
+									<span class="field-validation-error" data-valmsg-for="reply"
 										data-valmsg-replace="true"></span>
 								</div>
 							</div>
@@ -201,15 +189,14 @@ span.field-validation-error {
 													data = $("#data")
 															.serialize();
 												} else {
-													url = "complaint/update";
+													url = "complaint/repaly";
 													msg = "修改成功";
 													data = $("#data")
 															.serialize()
 															+ "&id=" + id;
 												}
 
-												$
-														.ajax({
+												$.ajax({
 															url : url,
 															type : "POST",
 															data : data,
