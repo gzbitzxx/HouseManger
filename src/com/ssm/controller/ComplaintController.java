@@ -106,8 +106,10 @@ public class ComplaintController {
 	@RequestMapping("/repaly")
 	@ResponseBody
 	public String repaly(Complaint complaint) {
-		complaint.setIsReplay(1);
-		complaintService.update(complaint);
+		Complaint com=complaintService.findByComplaint(complaint.getId()+"");
+		com.setReply(complaint.getReply());
+		com.setIsReplay(1);
+		complaintService.update(com);
 		return "";
 	}
 

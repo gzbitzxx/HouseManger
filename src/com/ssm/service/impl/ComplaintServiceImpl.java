@@ -41,5 +41,9 @@ public class ComplaintServiceImpl implements ComplaintService {
 	public void update(Complaint complaint) {
 		complaintMapper.update(complaint);
 	}
+	@Override
+	public Complaint findByComplaint(String id) {
+		return complaintMapper.findById(id);
+	}
 	
 }

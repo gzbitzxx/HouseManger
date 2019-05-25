@@ -13,6 +13,8 @@ public class Complaint {
 	private int isReplay;
 	//用户id
 	private int userId;
+	
+	//用户名
 	private String userName;
 	//回复内容
 	private String reply;
@@ -47,17 +49,18 @@ public class Complaint {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public String getReply() {
-		return reply;
-	}
-	public void setReplay(String reply) {
-		this.reply = reply;
-	}
+	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getReply() {
+		return reply;
+	}
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 	
 	

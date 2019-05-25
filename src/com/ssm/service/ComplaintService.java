@@ -31,6 +31,15 @@ public interface ComplaintService {
 	 * @return 投诉信息
 	 */
 	public String findById(String id);
+	
+	/**
+	 * 根据Id查询投诉信息
+	 * @param id 
+	 * @return 投诉信息
+	 */
+	public Complaint findByComplaint(String id);
+	
+	
 	/**
 	 * 根据id修改投诉信息
 	 * @param user 投诉信息

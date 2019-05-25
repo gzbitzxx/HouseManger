@@ -63,6 +63,7 @@
 	<update id="update" parameterType="complaint">
 		UPDATE complaint set
 		content=#{content},
+		isreplay=#{isReplay},
 		reply=#{reply}
 		where id=#{id}
 	</update>
